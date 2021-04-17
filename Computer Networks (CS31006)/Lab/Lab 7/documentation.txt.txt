@@ -1,0 +1,52 @@
++++++++++++++ Anshul CHoudhary | Ayush Kumar +++++++++++++
++++++++++++++ 17CS10005 | 17CS10007 +++++++++++++
+
++++++++++++++ Important Point +++++++++++++
+1. Using SIGKILL to kill the thread X. SIGINT can be used also.
+2. This works only for single server and client due to delayed duplicate.
+3. Restart user1.c and user2.c everytime
+
++++++++++++++  TABLE FOR TRANSMISSION DATA +++++++++++++
+
+p		n_t		len(string)		ratio
+0.05	46		45				1.03
+0.10	52		45				1.15
+0.15	62		45				1.38
+0.20	67		45				1.5
+0.25	76		45				1.7
+0.30	91		45				2.02
+0.35	93		45				2.03
+0.40	129		45				2.45
+0.45	110		45				3.08
+0.50	150		45				3.33
+
++++++++++++++ DATA STRUCTURES AND FIELDS +++++++++++++
+
+-> recv_buff: stored in the form of Cyclic Queue
+	structure with following field: // to maintain a record of received messages
+		-> msg
+		-> addr : source addr (sockaddr_in)
+
+-> recv_msg_id table: // maintain as array (Dynamically allocated)
+		-> id
+        -> addr
+        -> length
+
+-> unacked_msg table: stored in the form of linked list
+	structure with following field: // to maintain a record of unacknowledged msgs
+		-> time : time_stamp
+		-> id : msg_id
+		-> addr : destination_addr
+		-> msg 
+		-> flags
+        -> msg len
+        -> sock addr len
+
+		
++++++++++++++ MESSAGES AND THEIR USE CASE +++++++++++++
+
+Transmitted message = concatenate(id, message)
+Uses:
+-> Remove duplicates
+-> Could be used for ordered delivery to the application level
+
